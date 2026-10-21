@@ -1,0 +1,57 @@
+# Problem 5 - Polybius Checkerboard
+
+checkerboard = [
+    "ABCDE",
+    "FGHIJ",
+    "KLMNO",
+    "PQRST",
+    "UVWXY"
+]
+
+
+def locate(board, letter):
+    letter = letter.upper()
+
+    if letter == "Z":
+        return (4, 4)
+
+    for row in range(len(board)):
+        for col in range(len(board[row])):
+            if board[row][col] == letter:
+                return (row, col)
+
+    return None
+
+
+def encrypt(message):
+    result = []
+
+    for letter in message.upper():
+        if letter.isalpha():
+            row, col = locate(checkerboard, letter)
+            result.append(f"{row}{col}")
+
+    return " ".join(result)
+
+
+def decrypt(ciphertext):
+    result = ""
+
+    pairs = ciphertext.split()
+
+    for pair in pairs:
+        row = int(pair[0])
+        col = int(pair[1])
+
+        result += checkerboard[row][col]
+
+    return result
+
+
+message = input("Enter message: ")
+
+encrypted = encrypt(message)
+decrypted = decrypt(encrypted)
+
+print("Encrypted:", encrypted)
+print("Decrypted:", decrypted)

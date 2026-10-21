@@ -1,0 +1,35 @@
+# Problem 2 - Scytale Cipher
+
+def encipher(message, rows):
+    cols = len(message) // rows
+    ciphertext = ""
+
+    for row in range(rows):
+        for col in range(cols):
+            ciphertext += message[col * rows + row]
+
+    return ciphertext
+
+
+def decipher(ciphertext, rows):
+    cols = len(ciphertext) // rows
+    plaintext = [""] * len(ciphertext)
+
+    index = 0
+
+    for row in range(rows):
+        for col in range(cols):
+            plaintext[col * rows + row] = ciphertext[index]
+            index += 1
+
+    return "".join(plaintext)
+
+
+message = input("Enter message: ").upper().replace(" ", "")
+rows = int(input("Enter number of rows: "))
+
+encoded = encipher(message, rows)
+decoded = decipher(encoded, rows)
+
+print("Encoded Message:", encoded)
+print("Decoded Message:", decoded)

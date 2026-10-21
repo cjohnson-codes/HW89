@@ -1,0 +1,54 @@
+# Problem 3 - Date Shift Cipher
+
+def encode(message, date):
+    shifts = ""
+
+    for char in date:
+        if char.isdigit():
+            shifts += char
+
+    result = ""
+
+    for i in range(len(message)):
+        letter = message[i]
+
+        if letter.isalpha():
+            shift = int(shifts[i % len(shifts)])
+            value = (ord(letter.upper()) - ord('A') + shift) % 26
+            result += chr(value + ord('A'))
+        else:
+            result += letter
+
+    return result
+
+
+def decode(ciphertext, date):
+    shifts = ""
+
+    for char in date:
+        if char.isdigit():
+            shifts += char
+
+    result = ""
+
+    for i in range(len(ciphertext)):
+        letter = ciphertext[i]
+
+        if letter.isalpha():
+            shift = int(shifts[i % len(shifts)])
+            value = (ord(letter.upper()) - ord('A') - shift) % 26
+            result += chr(value + ord('A'))
+        else:
+            result += letter
+
+    return result
+
+
+message = input("Enter message: ").upper()
+date = input("Enter date (ex. 5/3/24): ")
+
+encoded = encode(message, date)
+decoded = decode(encoded, date)
+
+print("Encoded:", encoded)
+print("Decoded:", decoded)

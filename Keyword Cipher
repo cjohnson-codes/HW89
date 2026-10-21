@@ -1,0 +1,57 @@
+# Problem 4 - Keyword Cipher
+
+def build_cipher_alphabet(keyword):
+    keyword = keyword.upper()
+    cipher = ""
+
+    for letter in keyword:
+        if letter not in cipher:
+            cipher += letter
+
+    for letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
+        if letter not in cipher:
+            cipher += letter
+
+    return cipher
+
+
+def encode(message, keyword):
+    plain = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    cipher = build_cipher_alphabet(keyword)
+
+    result = ""
+
+    for letter in message.upper():
+        if letter.isalpha():
+            index = plain.index(letter)
+            result += cipher[index]
+        else:
+            result += letter
+
+    return result
+
+
+def decode(ciphertext, keyword):
+    plain = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    cipher = build_cipher_alphabet(keyword)
+
+    result = ""
+
+    for letter in ciphertext.upper():
+        if letter.isalpha():
+            index = cipher.index(letter)
+            result += plain[index]
+        else:
+            result += letter
+
+    return result
+
+
+keyword = input("Enter keyword: ")
+message = input("Enter message: ")
+
+encoded = encode(message, keyword)
+decoded = decode(encoded, keyword)
+
+print("Encoded:", encoded)
+print("Decoded:", decoded)
